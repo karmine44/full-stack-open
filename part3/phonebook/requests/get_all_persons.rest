@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/persons
+GET https://8x5qjj-3001.csb.app/api/persons
