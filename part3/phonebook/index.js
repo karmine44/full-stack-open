@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 morgan.token('post-data', (req, res) => (
     JSON.stringify({ name: req.body.name, number: req.body.number })
@@ -7,6 +8,7 @@ morgan.token('post-data', (req, res) => (
 
 
 const app = express()
+app.use(cors())
 
 app.use(express.json())
 app.use(morgan('tiny', {
@@ -47,10 +49,12 @@ app.get('/', (request, response) => {
     response.send('Hello, world!')
 })
 
+// Get all persons
 app.get('/api/persons', (request, response) => {
     response.send(persons)
 })
 
+// Get specific person
 app.get('/api/persons/:id', (request, response) => {
     const id = request.params.id
 
@@ -67,6 +71,7 @@ app.get('/info', (request, response) => {
     response.send(`Phonebook has info for ${persons.length} people\n\n${new Date}`)
 })
 
+// Add New Person
 app.post('/api/persons', (request, response) => {
     const body = request.body
     let id = 0;
@@ -100,9 +105,11 @@ app.post('/api/persons', (request, response) => {
 
     persons = persons.concat(person) 
 
-    response.send(`${person.name} added to phonebook with number ${person.number}`)
+    response.send(person)
 })
 
+
+// Delete person
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
 
@@ -113,9 +120,11 @@ app.delete('/api/persons/:id', (request, response) => {
     }
 
     persons = persons.filter(person => person.id !== id)
+
+    response.send(person)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
