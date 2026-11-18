@@ -78,6 +78,12 @@ const App = () => {
               setNewNumber('');
               setNewName('');
             })
+            .catch(error => {
+              const errorMessage = error.response.data.error;
+              setIsError(true);
+              setMessage(errorMessage);
+              console.log(errorMessage);
+            })
         }
       }
 
