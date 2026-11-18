@@ -1,1 +1,1 @@
-GET 8x5qjj-3001.csb.app/info
+GET http://localhost:3001/info

@@ -1,1 +1,1 @@
-GET 8x5qjj-3001.csb.app/api/persons/1
+GET http://localhost:3001/api/persons/6afc427443a76d8b1f0d782b
